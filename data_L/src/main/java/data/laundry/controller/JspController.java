@@ -12,8 +12,8 @@ import data.laundry.dto.CODE_COMMON;
 import data.laundry.dto.CODE_DETAIL;
 import data.laundry.dto.Sample;
 import data.laundry.mapper.All_tab_colsMapper;
-import data.laundry.mapper.CODEHMapper;
-import data.laundry.mapper.CODELMapper;
+import data.laundry.mapper.CODE_COMMONMapper;
+import data.laundry.mapper.CODE_DETAILMapper;
 import data.laundry.mapper.SampleMapper;
 
 @Controller
@@ -25,9 +25,9 @@ public class JspController {
 	@Autowired
 	SampleMapper sampleMapper;
 	@Autowired
-	CODEHMapper codeHMapper;
+	CODE_COMMONMapper code_commonMapper;
 	@Autowired
-	CODELMapper codeLMapper;
+	CODE_DETAILMapper code_detailMapper;
 	
 	@RequestMapping("columns")
 	public String columns( Model model) {
@@ -50,9 +50,9 @@ public class JspController {
 		for(int i =0 ; i< list.size(); i++) {
 			String name = list.get(i).getName();
 			
-			CODE_COMMON codeh = codeHMapper.findByName(name);
+			CODE_COMMON codeh = code_commonMapper.findByName(name);
 			int codeh_id = codeh.getId();
-		List <CODE_DETAIL> codeL = codeLMapper.findByCodeh_id(codeh_id);
+		List <CODE_DETAIL> codeL = code_detailMapper.findByCodeh_id(codeh_id);
 		model.addAttribute("codeL"+i, codeL);
 		
 		}
