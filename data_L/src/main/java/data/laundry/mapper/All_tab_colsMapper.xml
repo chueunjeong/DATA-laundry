@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.laundry.mapper.All_tab_colsMapper">
+	<select id="findAll" resultType="All_tab_cols"> 
+		select c.column_id,
+				c.column_name, c.data_type from all_tab_cols c 
+		
+	</select>
+
+
+	<select id="findByColumn_id" resultType="All_tab_cols"> 
+	select c.column_id,
+		c.column_name, c.data_type from all_tab_cols c 
+		where c.column_id =:column_id
+	</select>
+
+	<select id="findAllNumber" resultType="All_tab_cols"> 
+	select c.column_id, c.column_name, c.data_type from all_tab_cols c where c.data_type='NUMBER'
+	</select>
+
+
+
+</mapper>
