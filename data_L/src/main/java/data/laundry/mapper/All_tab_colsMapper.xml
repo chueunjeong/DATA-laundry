@@ -10,7 +10,13 @@
 	<select id="findByColumn_id" resultType="All_tab_cols"> 
 	select c.column_id,
 		c.column_name, c.data_type from all_tab_cols c 
-		where c.column_id =:column_id
+		where c.column_id = #{column_id}
+	</select>
+
+	<select id="findByColumn_name" resultType="All_tab_cols"> 
+	select c.column_id,
+		c.column_name, c.data_type from all_tab_cols c 
+		where c.column_name = #{column_name}
 	</select>
 
 	<select id="findAllNumber" resultType="All_tab_cols"> 
