@@ -9,5 +9,6 @@ import data.laundry.dto.Sample;
 public interface SampleMapper {
 	
 	List<Sample> findAll();
+	List<Sample> findByYn();
 
 }

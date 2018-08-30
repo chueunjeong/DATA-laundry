@@ -55,6 +55,16 @@ public class ApiController {
 		return columnMapper.findByTable_name(name);
 	}
 
+	//name으로 조회 대소문자 구별함.
+	@RequestMapping("sample/yn")
+	public List<Sample> yn() {
+		
+		return sampleMapper.findByYn();
+	}
+
+	
+		
+	
 	
 	//type이 "number"인 것만 조회
 	@RequestMapping("columns/number")

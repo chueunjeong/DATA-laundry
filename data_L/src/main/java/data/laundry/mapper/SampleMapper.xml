@@ -5,6 +5,13 @@
 		
 	</select>
 
+	<select id="findByYn" resultType="Sample"> 
+		select * from SAMPLE
+		where name in 
+		('Y', 'N')
+	</select>
+
+
 
 
 
