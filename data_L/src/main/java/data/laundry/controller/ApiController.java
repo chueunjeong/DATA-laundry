@@ -31,6 +31,11 @@ public class ApiController {
 		return columnMapper.findAll();
 	}
 	
+	@RequestMapping("tables")
+	public List<All_tab_cols> tables() {
+		return columnMapper.groupByTable();
+	}
+	
 
 	//id로 조회
 	@RequestMapping("columns/id/{id}")
@@ -39,9 +44,15 @@ public class ApiController {
 	}
 	
 	//name으로 조회 대소문자 구별함.
-	@RequestMapping("columns/name/{name}")
+	@RequestMapping("columns/column_name/{name}")
 	public List<All_tab_cols> column_name(@PathVariable("name") String name) {
 		return columnMapper.findByColumn_name(name);
+	}
+
+	//name으로 조회 대소문자 구별함.
+	@RequestMapping("columns/table_name/{name}")
+	public List<All_tab_cols> table_name(@PathVariable("name") String name) {
+		return columnMapper.findByTable_name(name);
 	}
 
 	

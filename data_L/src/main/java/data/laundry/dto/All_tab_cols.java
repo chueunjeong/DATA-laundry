@@ -3,11 +3,22 @@ package data.laundry.dto;
 
 public class All_tab_cols {
 
+	private String table_name;
+	
 	private int column_id;
+	
 	private String column_name;
 	private String data_type;
 
 	
+	public String getTable_name() {
+		return table_name;
+	}
+
+	public void setTable_name(String table_name) {
+		this.table_name = table_name;
+	}
+
 	public int getColumn_id() {
 		return column_id;
 	}
