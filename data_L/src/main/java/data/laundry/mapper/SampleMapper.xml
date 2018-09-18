@@ -7,7 +7,7 @@
 
 	<select id="findByYn" resultType="Sample"> 
 		select * from SAMPLE
-		where name in 
+		where name NOT in 
 		('Y', 'N')
 	</select>
 
