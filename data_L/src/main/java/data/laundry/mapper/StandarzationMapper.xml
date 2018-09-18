@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.laundry.mapper.StandarzationMapper">
+	<select id="findAll" resultType="Standarzation">
+		select * from CODE
+
+	</select>
+
+
+	<select id="findByGroup_code_id" resultType="Standarzation">
+		select * from CODE
+		where group_code_id =#{group_code_id}
+	</select>
+
+	<select id="showDomain" resultType="Standarzation">
+		select s.id
+		,s.meta_column_id, m.column_name as column_name
+		,s.group_code_id, g.name as group_code_name
+		,s.detail_code_id, d.name as detail_code_name
+		from STANDARDIZATION s
+		left join META_COLUMN m ON s.meta_column_id = m.id
+		left join group_code g ON s.group_code_id = g.id
+		left join detail_code d ON s.detail_code_id = d.id
+		where s.table_name = #{table_name}
+	</select>
+
+
+</mapper>
