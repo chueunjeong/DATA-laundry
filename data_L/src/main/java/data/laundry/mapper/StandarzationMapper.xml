@@ -12,7 +12,7 @@
 	</select>
 
 	<select id="showDomain" resultType="Standarzation">
-		select s.id
+		select s.id, m.table_name
 		,s.meta_column_id, m.column_name as column_name
 		,s.group_code_id, g.name as group_code_name
 		,s.detail_code_id, d.name as detail_code_name

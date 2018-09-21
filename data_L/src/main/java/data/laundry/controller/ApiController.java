@@ -59,10 +59,10 @@ public class ApiController {
 	}
 
 	//name으로 조회 대소문자 구별함.
-	@RequestMapping("sample/yn")
+	@RequestMapping("SAMPLE/YN")
 	public List<Sample> yn() {
 		
-		return sampleMapper.findByYn();
+		return sampleMapper.findByYN();
 	}
 
 	

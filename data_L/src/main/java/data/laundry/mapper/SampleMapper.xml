@@ -5,11 +5,13 @@
 		
 	</select>
 
-	<select id="findByYn" resultType="Sample"> 
+	<select id="findByYN" resultType="Sample"> 
 		select * from SAMPLE
 		where name NOT in 
 		('Y', 'N')
 	</select>
+	
+	
 
 
 
