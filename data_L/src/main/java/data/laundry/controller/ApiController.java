@@ -1,6 +1,9 @@
 package data.laundry.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import data.laundry.dto.Standarzation;
 import data.laundry.dto.Sample;
-
+import data.laundry.dto.AnalysisInfo;
 import data.laundry.dto.Meta_column;
+import data.laundry.dto.ParameterType;
 import data.laundry.mapper.StandarzationMapper;
 import data.laundry.mapper.Meta_columnMapper;
 import data.laundry.mapper.SampleMapper;
@@ -61,8 +65,58 @@ public class ApiController {
 	//name으로 조회 대소문자 구별함.
 	@RequestMapping("SAMPLE/YN")
 	public List<Sample> yn() {
+	
+		String str = "1;2;3";
+		StringTokenizer st = new StringTokenizer(str, ";");
+		List<String> tokens = new ArrayList();
+		while(st.hasMoreElements()) {
+			String token = st.nextToken();
+			
+			tokens.add(token);
+		}
 		
-		return sampleMapper.findByYN();
+		for(String index : tokens) {
+			
+			HashMap<String, Object> query = new HashMap<String, Object>();
+			query.put("index", index);
+			AnalysisInfo ainfo = dao.getAnalysisInfo(query);
+			
+			String columnName = ainfo.getColumnName();
+			String tableName = ainfo.getTableName();
+			int attrType = ainfo.getAttrType();
+			
+			if ( attrType == 1 ) {
+				//-- yn
+			} else if ( attrType == 2 ) {
+				//-- date
+			}
+			
+			ParameterType paramType = new ParameterType();
+			paramType.setTableName("");
+			paramType.setColumnName(columnName);
+			
+			List<HashMap<String, Object>> r = sampleMapper.findByYN(paramType);
+			
+			String findValue;
+			for(HashMap<String, Object> info : r ) {
+//				for(String key : schema) {
+//					Object value = info.get(key);
+//					
+//					
+//				}
+				Object value = info.get(columnName);
+				if ( value != null ) {
+					findValue = (String)value;
+
+					//-- to do write invalid target info table
+					
+				}
+			}
+			
+
+		}
+		
+				return null;
 	}
 
 	

@@ -4,6 +4,8 @@ public class Sample {
 	private int id;
 	private String name;
 	
+	private String buf[];
+	
 	public int getId() {
 		return id;
 	}

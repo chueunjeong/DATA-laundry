@@ -5,10 +5,13 @@
 		
 	</select>
 
-	<select id="findByYN" resultType="Sample"> 
-		select * from SAMPLE
-		where name NOT in 
-		('Y', 'N')
+	<select id="findByYN" parameterType="ParameterType" resultType="HashMap"> 
+		select 
+			* 
+		from 
+			#{tableName}
+		where 
+			#{columnName} NOT in ('Y', 'N')
 	</select>
 	
 	
