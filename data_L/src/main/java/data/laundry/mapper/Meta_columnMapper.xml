@@ -9,7 +9,7 @@
 	<select id="groupByTable" resultType="Meta_column">
 		select table_name from
 		meta_column
-		where data_type is not null and table_name = 'SAMPLE'
+		where data_type is not null 
 		group
 		by table_name
 	</select>
