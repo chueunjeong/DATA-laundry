@@ -80,7 +80,7 @@ public class ApiController {
 	}
 	//yn필터링
 	@RequestMapping(value = "selectedColumn", method = RequestMethod.POST)
-	public String YnFiltering(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
+	public List<HashMap<String, Object>> YnFiltering(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
 		
 	
 			/* 선택된 칼럼 정보를 List<ParameterType>으로 가져오므로 트큰 작업은 하지 않아도 된다.
@@ -121,7 +121,7 @@ public class ApiController {
 			
 			
 			
-			for(HashMap<String, Object> info : r ) {
+			/*for(HashMap<String, Object> info : r ) {
 
 				Iterator iterator = info.entrySet().iterator();
 
@@ -130,12 +130,12 @@ public class ApiController {
 
 				System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
 				}
-			}
+			}*/
+			return r;
 			
 
 		//}
 		
-				return "완료";
 	}
 
 	

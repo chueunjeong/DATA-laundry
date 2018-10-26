@@ -3,8 +3,7 @@ package data.laundry.dto;
 public class Sample {
 	private int id;
 	private String name;
-	
-	private String buf[];
+	private String yesno;
 	
 	public int getId() {
 		return id;
@@ -18,7 +17,13 @@ public class Sample {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getYesno() {
+		return yesno;
+	}
+	public void setYesno(String yesno) {
+		this.yesno = yesno;
+	}
 	
-	
+
 
 }
