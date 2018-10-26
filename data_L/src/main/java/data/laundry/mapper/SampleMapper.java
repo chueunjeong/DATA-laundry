@@ -6,11 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 import data.laundry.dto.ParameterType;
 import data.laundry.dto.Sample;
+import data.laundry.dto.Standarzation;
 
 @Mapper
 public interface SampleMapper {
 	
 	List<Sample> findAll();
-	List<HashMap<String, Object>> findByYN(ParameterType paramType);
+	List<HashMap<String, Object>> findByYN(Standarzation standarzaion);
+	List<HashMap<String, Object>> findByYesNo(Standarzation standarzaion);
 
 }
