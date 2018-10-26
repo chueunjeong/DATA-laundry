@@ -11,20 +11,21 @@ package data.laundry.dto;
  *
  */
 public class ParameterType {
-	private String tableName;
-	private String columnName;
+	private String table_name;
+	private String column_name;
 	
-	public String getTableName() {
-		return tableName;
+	
+	public String getTable_name() {
+		return table_name;
 	}
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setTable_name(String table_name) {
+		this.table_name = table_name;
 	}
-	public String getColumnName() {
-		return columnName;
+	public String getColumn_name() {
+		return column_name;
 	}
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
+	public void setColumn_name(String column_name) {
+		this.column_name = column_name;
 	}
 	
 	
