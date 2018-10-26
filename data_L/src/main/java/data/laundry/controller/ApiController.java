@@ -2,21 +2,27 @@ package data.laundry.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.laundry.dto.Standarzation;
+import data.laundry.dto.Standardization;
 import data.laundry.dto.Sample;
-import data.laundry.dto.AnalysisInfo;
 import data.laundry.dto.Meta_column;
 import data.laundry.dto.ParameterType;
-import data.laundry.mapper.StandarzationMapper;
+import data.laundry.mapper.StandardizationMapper;
 import data.laundry.mapper.Meta_columnMapper;
 import data.laundry.mapper.SampleMapper;
 
@@ -30,7 +36,7 @@ public class ApiController {
 	@Autowired
 	SampleMapper sampleMapper;
 	@Autowired
-	StandarzationMapper standarzationMapper;
+	StandardizationMapper standarzationMapper;
 	
 
 	@RequestMapping("columns")
@@ -58,65 +64,83 @@ public class ApiController {
 
 	//name으로 조회 대소문자 구별함.
 	@RequestMapping("columns/table_name/{name}")
-	public List<Standarzation> table_name(@PathVariable("name") String name) {
+	public List<Standardization> table_name(@PathVariable("name") String name) {
 		return standarzationMapper.showDomain(name);
 	}
 
-	//name으로 조회 대소문자 구별함.
-	@RequestMapping("SAMPLE/YN")
-	public List<Sample> yn() {
 	
-		String str = "1;2;3";
-		StringTokenizer st = new StringTokenizer(str, ";");
-		List<String> tokens = new ArrayList();
-		while(st.hasMoreElements()) {
-			String token = st.nextToken();
-			
-			tokens.add(token);
-		}
+	@RequestMapping(value = "selectedColumns", method = RequestMethod.POST)
+	public String YnFilterings(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
+		String selectTable = parameterType.getTable_name();
 		
-		for(String index : tokens) {
-			
-			HashMap<String, Object> query = new HashMap<String, Object>();
-			query.put("index", index);
-			AnalysisInfo ainfo = dao.getAnalysisInfo(query);
-			
-			String columnName = ainfo.getColumnName();
-			String tableName = ainfo.getTableName();
-			int attrType = ainfo.getAttrType();
-			
-			if ( attrType == 1 ) {
-				//-- yn
-			} else if ( attrType == 2 ) {
-				//-- date
+		Standardization  ainfo =  standarzationMapper.findByTableAndColumn(parameterType);
+		int attrType = ainfo.getDetail_code_id();
+		List<HashMap<String, Object>> r = new ArrayList<HashMap<String, Object>>();
+		
+		if ( attrType == 1 ) {
+	
+			 r = sampleMapper.findByYN(ainfo);
+		}
+		return	selectTable;
+	}
+	//yn필터링
+	@RequestMapping(value = "selectedColumn", method = RequestMethod.POST)
+	public String YnFiltering(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
+		
+	
+			/* 선택된 칼럼 정보를 List<ParameterType>으로 가져오므로 트큰 작업은 하지 않아도 된다.
+			 * String str = "1;2;3";
+			StringTokenizer st = new StringTokenizer(str, ";");
+			List<String> tokens = new ArrayList();
+			while(st.hasMoreElements()) {
+				String token = st.nextToken();
+				
+				tokens.add(token);
 			}
 			
-			ParameterType paramType = new ParameterType();
-			paramType.setTableName("");
-			paramType.setColumnName(columnName);
+			for(ParameterType selectedInfo  : parameterTypes) {
+				
+			String selectTable = selectedInfo.getTableName();
+			String selectColumn = selectedInfo.getColumnName();
+			*/
+		
+		String selectTable = parameterType.getTable_name();
+		String selectColumn = parameterType.getColumn_name();
+		
+		//도메인 정보까지 있는 standarzationmeta 테이블에 테이블명과 칼럼 이름을 조건으로 접근
+		//ainfo에 분석 테이블, 칼럼이름, 도메인 정보를 채움
+		Standardization  ainfo =  standarzationMapper.findByTableAndColumn(parameterType);
+		int attrType = ainfo.getDetail_code_id();
+		
+		//필터링 결과값을 담는 동적 리스트 변수 r
+		List<HashMap<String, Object>> r = new ArrayList<HashMap<String, Object>>();
+			if ( attrType == 1 ) {
+				//-- y n
+				 r = sampleMapper.findByYN(ainfo);
+				
+			} else if ( attrType == 2 ) {
+				//-- yes no
+				 r = sampleMapper.findByYesNo(ainfo);
+				
+			}
 			
-			List<HashMap<String, Object>> r = sampleMapper.findByYN(paramType);
 			
-			String findValue;
+			
 			for(HashMap<String, Object> info : r ) {
-//				for(String key : schema) {
-//					Object value = info.get(key);
-//					
-//					
-//				}
-				Object value = info.get(columnName);
-				if ( value != null ) {
-					findValue = (String)value;
 
-					//-- to do write invalid target info table
-					
+				Iterator iterator = info.entrySet().iterator();
+
+				while (iterator.hasNext()) {
+				Entry entry = (Entry)iterator.next();
+
+				System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
 				}
 			}
 			
 
-		}
+		//}
 		
-				return null;
+				return "완료";
 	}
 
 	
@@ -131,14 +155,14 @@ public class ApiController {
 	
 	
 	@RequestMapping("codes")
-	public List<Standarzation> codes() {
+	public List<Standardization> codes() {
 		return standarzationMapper.findAll();
 	}
 	
 	
 	
 	@RequestMapping("code/{group_code_id}")
-	public List<Standarzation> findByGroup(@PathVariable("group_code_id") int group_code_id) {
+	public List<Standardization> findByGroup(@PathVariable("group_code_id") int group_code_id) {
 		return standarzationMapper.findByGroup_code_id(group_code_id);
 	}
 	
