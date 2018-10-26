@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import data.laundry.dto.AnalysisInfo;
 import data.laundry.dto.Meta_column;
 import data.laundry.dto.ParameterType;
 import data.laundry.mapper.Meta_columnMapper;
