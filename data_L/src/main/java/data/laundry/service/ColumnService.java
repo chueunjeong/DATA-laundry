@@ -22,17 +22,18 @@ public class ColumnService {
 	@Autowired
 	Meta_columnMapper columnMapper;
 	
-	@RequestMapping("columns")
 	public List<Meta_column> columns() {
 		return columnMapper.findAll();
 	}
 	
-
-	
-
 	//id로 조회
-	@RequestMapping("columns/id/{id}")
 	public List<Meta_column> column_id(@PathVariable("id") int id) {
 		return columnMapper.findById(id);
 	}
+	
+	//name으로 조회 대소문자 구별함.
+	public List<Meta_column> column_name(String name) {
+			return columnMapper.findByColumn_name(name);
+		}
 }
+
