@@ -6,19 +6,19 @@
 	</select>
 
 
-	<select id="findByGroup_code_id" resultType="Standarzation">
+	<select id="findByGroup_code_id" resultType="Standardization">
 		select * from CODE
 		where group_code_id =#{group_code_id}
 	</select>
 	
-	<select id="findByTableAndColumn"  resultType="Standarzation">
+	<select id="findByTableAndColumn"  resultType="Standardization">
 		SELECT *
 			FROM STANDARDIZATION
 		WHERE table_name = #{ table_name } and
 				column_name = #{ column_name }
 				
 	</select>
-	<select id="showDomain" resultType="Standarzation">
+	<select id="showDomain" resultType="Standardization">
 		select s.id, m.table_name
 		,s.meta_column_id, m.column_name as column_name
 		,s.group_code_id, g.name as group_code_name
