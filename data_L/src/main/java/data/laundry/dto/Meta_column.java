@@ -5,6 +5,7 @@ public class Meta_column {
 	String table_name;
 	String column_name;
 	String data_type;
+	
 	public int getId() {
 		return id;
 	}
@@ -29,6 +30,8 @@ public class Meta_column {
 	public void setData_type(String data_type) {
 		this.data_type = data_type;
 	}
+	
+	
 	
 	
 	

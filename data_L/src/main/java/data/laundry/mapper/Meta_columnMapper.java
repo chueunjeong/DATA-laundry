@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import data.laundry.dto.Meta_column;
+import data.laundry.dto.ParameterType;
 
 @Mapper
 public interface Meta_columnMapper{
@@ -18,5 +19,6 @@ public interface Meta_columnMapper{
 	List<Meta_column> findByColumn_name(String column_name);
 	List<Meta_column> findByData_type(String data_type);
 	
+	void insertStringType(ParameterType stringType);
 	
 }

@@ -7,17 +7,21 @@
 	</select>
 
 	<select id="groupByTable" resultType="Meta_column">
-		select table_name from meta_column
+		select table_name from
+		meta_column
 		where data_type is not null and table_name = 'SAMPLE'
-		group by table_name
+		group
+		by table_name
 	</select>
 
 
 	<select id="findByTable_name" resultType="Meta_column">
-		select c.table_name, c.id,
+		select c.table_name,
+		c.id,
 		c.column_name, c.data_type from
 		meta_column c
-		where c.table_name = #{table_name}
+		where c.table_name =
+		#{table_name}
 	</select>
 
 
@@ -29,16 +33,28 @@
 	</select>
 
 	<select id="findByColumn_name" resultType="Meta_column">
-		select c.table_name, c.id,
-		c.column_name, c.data_type from
-		meta_column c
-		where c.column_name = #{column_name}
+		select data_type from
+		meta_column 
+		where column_name =
+		#{column_name}
 	</select>
 
 	<select id="findByData_type" resultType="Meta_column">
-		select c.table_name, c.id, c.column_name, c.data_type from
-		meta_column c where c.data_type=#{data_type}
+		select c.table_name,
+		c.id, c.column_name, c.data_type from
+		meta_column c where
+		c.data_type=#{data_type}
 	</select>
+	
+	<insert id="insertStringType" parameterType ="ParameterType" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+			meta_column(stringType)
+		VALUES (#{stringType})
+		WHERE column_name = #(column_name)
+	</insert>
+
+
+
 
 
 
