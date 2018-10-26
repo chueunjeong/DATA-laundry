@@ -1,6 +1,6 @@
 package data.laundry.dto;
 
-public class Standarzation {
+public class Standardization {
 	private int id;
 	private int meta_column_id;
 	private int group_code_id;
