@@ -10,7 +10,14 @@
 		select * from CODE
 		where group_code_id =#{group_code_id}
 	</select>
-
+	
+	<select id="findByTableAndColumn"  resultType="Standarzation">
+		SELECT *
+			FROM STANDARDIZATION
+		WHERE table_name = #{ table_name } and
+				column_name = #{ column_name }
+				
+	</select>
 	<select id="showDomain" resultType="Standarzation">
 		select s.id, m.table_name
 		,s.meta_column_id, m.column_name as column_name
