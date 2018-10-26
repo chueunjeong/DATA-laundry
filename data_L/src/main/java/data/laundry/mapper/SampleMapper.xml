@@ -7,9 +7,9 @@
 
 
 	<!-- Group_code_id=1 && detail_code_id = 1일때  -->
-	<select id="findByYN"  resultType="HashMap"> 
+	<select id="findByYN"  resultType="FilterResult"> 
 		select 
-			* 
+			id, ${column_name} as error
 		from 
 			${table_name}
 		where 
@@ -17,9 +17,9 @@
 	</select>
 	
 	<!-- Group_code_id=1 && detail_code_id = 2일때  -->
-	<select id="findByYesNo"  resultType="HashMap"> 
+	<select id="findByYesNo"  resultType="FilterResult"> 
 		select 
-			* 
+			id, ${column_name}  as error
 		from 
 			${table_name}
 		where 

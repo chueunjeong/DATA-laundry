@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import data.laundry.dto.Standardization;
 import data.laundry.dto.Sample;
+import data.laundry.dto.FilterResult;
 import data.laundry.dto.Meta_column;
 import data.laundry.dto.ParameterType;
 import data.laundry.mapper.StandardizationMapper;
@@ -68,73 +70,32 @@ public class ApiController {
 		return standarzationMapper.showDomain(name);
 	}
 
-	//테스트 한줄씩
-	@RequestMapping(value = "selectedColumns", method = RequestMethod.POST)
-	public String YnFilterings(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
-		String selectTable = parameterType.getTable_name();
-		
-		Standardization  ainfo =  standarzationMapper.findByTableAndColumn(parameterType);
-		int attrType = ainfo.getDetail_code_id();
-		List<HashMap<String, Object>> r =sampleMapper.findByYN(ainfo);
-		return	ainfo.getColumn_name();
-	}
+
 	//yn필터링
 	@RequestMapping(value = "selectedColumn", method = RequestMethod.POST)
-	public List<HashMap<String, Object>> YnFiltering(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
-		
-	
-			/* 선택된 칼럼 정보를 List<ParameterType>으로 가져오므로 트큰 작업은 하지 않아도 된다.
-			 * String str = "1;2;3";
-			StringTokenizer st = new StringTokenizer(str, ";");
-			List<String> tokens = new ArrayList();
-			while(st.hasMoreElements()) {
-				String token = st.nextToken();
-				
-				tokens.add(token);
-			}
+	public List<FilterResult> YnFiltering(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
 			
-			for(ParameterType selectedInfo  : parameterTypes) {
-				
-			String selectTable = selectedInfo.getTableName();
-			String selectColumn = selectedInfo.getColumnName();
-			*/
-		
-		String selectTable = parameterType.getTable_name();
-		String selectColumn = parameterType.getColumn_name();
 		
 		//도메인 정보까지 있는 standarzationmeta 테이블에 테이블명과 칼럼 이름을 조건으로 접근
 		//ainfo에 분석 테이블, 칼럼이름, 도메인 정보를 채움
 		Standardization  ainfo =  standarzationMapper.findByTableAndColumn(parameterType);
 		int attrType = ainfo.getDetail_code_id();
-		
+		List <FilterResult> r =new ArrayList<FilterResult>();
 		//필터링 결과값을 담는 동적 리스트 변수 r
-		List<HashMap<String, Object>> r = new ArrayList<HashMap<String, Object>>();
 			if ( attrType == 1 ) {
 				//-- y n
-				 r = sampleMapper.findByYN(ainfo);
+				 r= sampleMapper.findByYN(ainfo);
 				
 			} else if ( attrType == 2 ) {
 				//-- yes no
-				 r = sampleMapper.findByYesNo(ainfo);
+				 r= sampleMapper.findByYesNo(ainfo);
 				
 			}
 			
 			
-			
-			/*for(HashMap<String, Object> info : r ) {
-
-				Iterator iterator = info.entrySet().iterator();
-
-				while (iterator.hasNext()) {
-				Entry entry = (Entry)iterator.next();
-
-				System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-				}
-			}*/
 			return r;
 			
 
-		//}
 		
 	}
 
@@ -143,8 +104,8 @@ public class ApiController {
 	
 	
 
-	@RequestMapping(value = "record")
-	public String YnFilterings(Model model, HttpServletRequest request, @RequestParam String table_name) {
+	@RequestMapping(value = "record/{table_name}")
+	public List<Sample> record(Model model, HttpServletRequest request, @PathVariable("table_name") String table_name) {
 		return sampleMapper.findAll(table_name);
 	}
 	
