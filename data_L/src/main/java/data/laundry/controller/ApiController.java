@@ -68,20 +68,15 @@ public class ApiController {
 		return standarzationMapper.showDomain(name);
 	}
 
-	
+	//테스트 한줄씩
 	@RequestMapping(value = "selectedColumns", method = RequestMethod.POST)
 	public String YnFilterings(Model model, HttpServletRequest request, @RequestBody ParameterType parameterType) {
 		String selectTable = parameterType.getTable_name();
 		
 		Standardization  ainfo =  standarzationMapper.findByTableAndColumn(parameterType);
 		int attrType = ainfo.getDetail_code_id();
-		List<HashMap<String, Object>> r = new ArrayList<HashMap<String, Object>>();
-		
-		if ( attrType == 1 ) {
-	
-			 r = sampleMapper.findByYN(ainfo);
-		}
-		return	selectTable;
+		List<HashMap<String, Object>> r =sampleMapper.findByYN(ainfo);
+		return	ainfo.getColumn_name();
 	}
 	//yn필터링
 	@RequestMapping(value = "selectedColumn", method = RequestMethod.POST)

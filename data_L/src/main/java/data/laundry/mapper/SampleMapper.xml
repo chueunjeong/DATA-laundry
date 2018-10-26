@@ -11,9 +11,9 @@
 		select 
 			* 
 		from 
-			#{table_name}
+			${table_name}
 		where 
-			#{column_name} NOT in ('Y', 'N')
+			${column_name} NOT in ('Y', 'N')
 	</select>
 	
 	<!-- Group_code_id=1 && detail_code_id = 2일때  -->
@@ -21,9 +21,9 @@
 		select 
 			* 
 		from 
-			#{table_name}
+			${table_name}
 		where 
-			#{column_name} NOT in ('YES', 'NO')
+			${column_name} NOT in ('YES', 'NO')
 	</select>
 	
 	

@@ -12,7 +12,7 @@ import data.laundry.dto.Standardization;
 public interface SampleMapper {
 	
 	List<Sample> findAll();
-	List<HashMap<String, Object>> findByYN(Standardization standarzaion);
-	List<HashMap<String, Object>> findByYesNo(Standardization standarzaion);
+	List<HashMap<String, Object>> findByYN(Standardization standardizaion);
+	List<HashMap<String, Object>> findByYesNo(Standardization standardizaion);
 
 }
