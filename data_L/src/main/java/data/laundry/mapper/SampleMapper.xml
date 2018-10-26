@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.laundry.mapper.SampleMapper">
 	<select id="findAll" resultType="Sample"> 
-		select * from ${table_name}
+		SELECT 
+				* 
+			FROM ${table_name}
 		
 	</select>
 
 
 	<!-- Group_code_id=1 && detail_code_id = 1일때  -->
 	<select id="findByYN"  resultType="FilterResult"> 
-		select 
-			id, ${column_name} as error
-		from 
-			${table_name}
-		where 
-			${column_name} NOT in ('Y', 'N')
+		SELECT 
+				id
+				, ${column_name} as error
+			FROM 
+				${table_name}
+			WHERE 
+				${column_name} NOT in ('Y', 'N')
 	</select>
 	
 	<!-- Group_code_id=1 && detail_code_id = 2일때  -->
 	<select id="findByYesNo"  resultType="FilterResult"> 
 		select 
-			id, ${column_name}  as error
-		from 
-			${table_name}
-		where 
-			${column_name} NOT in ('YES', 'NO')
+				id
+				, ${column_name}  as error
+			FROM 
+				${table_name}
+			WHERE 
+				${column_name} NOT in ('YES', 'NO')
 	</select>
 	
 	

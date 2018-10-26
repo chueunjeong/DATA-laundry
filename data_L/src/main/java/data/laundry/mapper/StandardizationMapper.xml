@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.laundry.mapper.StandardizationMapper">
 	<select id="findAll" resultType="Standardization">
-		select * from CODE
+		SELECT 
+				* 
+			FROM CODE
 
 	</select>
 
 
 	<select id="findByGroup_code_id" resultType="Standardization">
-		select * from CODE
-		where group_code_id =#{group_code_id}
+		SELECT
+				 * 
+			FROM CODE
+			WHERE group_code_id =#{group_code_id}
 	</select>
 	
 	<select id="findByTableAndColumn"  resultType="Standardization">
 		SELECT *
 			FROM STANDARDIZATION
-		WHERE table_name = #{ table_name } and
-				column_name = #{ column_name }
+			WHERE table_name = #{ table_name } 
+			AND	column_name = #{ column_name }
 				
 	</select>
 	<select id="showDomain" resultType="Standardization">
-		select s.id, m.table_name
-		,s.meta_column_id, m.column_name as column_name
-		,s.group_code_id, g.name as group_code_name
-		,s.detail_code_id, d.name as detail_code_name
-		from STANDARDIZATION s
-		left join META_COLUMN m ON s.meta_column_id = m.id
-		left join group_code g ON s.group_code_id = g.id
-		left join detail_code d ON s.detail_code_id = d.id
-		where s.table_name = #{table_name}
+		SELECT  s.id
+				, m.table_name
+				, s.meta_column_id 
+				, m.column_name as column_name
+				, s.group_code_id
+				, g.name as group_code_name
+				, s.detail_code_id
+				, d.name as detail_code_name
+			FROM STANDARDIZATION s
+				LEFT JOIN META_COLUMN m ON s.meta_column_id = m.id
+				LEFT JOIN group_code g ON s.group_code_id = g.id
+				LEFT JOIN detail_code d ON s.detail_code_id = d.id
+			WHERE s.table_name = #{table_name}
 	</select>
 
 
