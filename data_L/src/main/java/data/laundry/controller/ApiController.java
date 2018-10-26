@@ -25,6 +25,7 @@ import data.laundry.dto.FilterResult;
 import data.laundry.dto.Meta_column;
 import data.laundry.dto.ParameterType;
 import data.laundry.mapper.StandardizationMapper;
+import data.laundry.service.TableService;
 import data.laundry.mapper.Meta_columnMapper;
 import data.laundry.mapper.SampleMapper;
 
@@ -40,6 +41,8 @@ public class ApiController {
 	@Autowired
 	StandardizationMapper standarzationMapper;
 	
+	@Autowired
+	TableService tableService;
 
 	@RequestMapping("columns")
 	public List<Meta_column> columns() {
@@ -48,7 +51,7 @@ public class ApiController {
 	
 	@RequestMapping("tables")
 	public List<Meta_column> tables() {
-		return columnMapper.groupByTable();
+		return tableService.tables();
 	}
 	
 
