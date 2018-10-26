@@ -143,9 +143,9 @@ public class ApiController {
 	
 	
 
-	@RequestMapping("record/SAMPLE")
-	public List<Sample> record_samples() {
-		return sampleMapper.findAll();
+	@RequestMapping(value = "record")
+	public String YnFilterings(Model model, HttpServletRequest request, @RequestParam String table_name) {
+		return sampleMapper.findAll(table_name);
 	}
 	
 	
